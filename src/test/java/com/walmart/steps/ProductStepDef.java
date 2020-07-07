@@ -16,8 +16,7 @@ public class ProductStepDef {
     }
 
     @And("I verify the product data")
-    public void iVerifyTheProductData()
-    {
+    public void iVerifyTheProductData() throws Exception {
         Producto p = walmartSite.getSearch().getProducto();
         walmartSite.getProduct().validarProducto(p);
     }

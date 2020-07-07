@@ -1,5 +1,6 @@
 package com.walmart.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,13 +26,9 @@ public class CartPage extends BasePage
 
     public void addToCart()
     {
-        wait.until(ExpectedConditions.visibilityOf(addToCart));
         wait.until(ExpectedConditions.elementToBeClickable(addToCart));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", addToCart);
         addToCart.click();
     }
 

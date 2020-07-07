@@ -4,6 +4,7 @@ import com.walmart.sites.WalmartSite;
 import com.walmart.utils.Properties;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -24,13 +25,14 @@ public class Hooks {
     @Before
     public void setUp()
     {
-        options = new ChromeOptions();
-        options.addArguments("user-data-dir=C:/Users/ksfl580/AppData/Local/Google/Chrome/User Data//Default/");
-        options.addArguments("--start-maximized");
-        //options.addArguments("--incognito");
-        options.addArguments("--disable-notifications");
+      options = new ChromeOptions();
+//        options.addArguments("user-data-dir=C:/Users/ksfl580/AppData/Local/Google/Chrome/User Data//Default/");
+//        options.addArguments("--start-maximized");
+//        //options.addArguments("--incognito");
+       options.addArguments("--disable-notifications");
         options.addArguments("--enable-javascript");
         driver = new ChromeDriver(options);
+        driver.manage().window().setSize(new Dimension(1920,1080));
         driver.manage().timeouts().implicitlyWait(Properties.LONG_WAIT, TimeUnit.SECONDS);
         walmartSite = new WalmartSite(driver);
     }

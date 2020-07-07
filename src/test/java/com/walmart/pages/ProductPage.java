@@ -26,11 +26,17 @@ public class ProductPage extends BasePage
     @FindBy(css="[data-automation-id='product-price']")
     WebElement precioProducto;
 
-    public void validarProducto(Producto primerProd)
-    {
-        wait.until(ExpectedConditions.visibilityOf(nombreProducto));
-        wait.until(ExpectedConditions.visibilityOf(marcaProducto));
-        wait.until(ExpectedConditions.visibilityOf(precioProducto));
+    public void validarProducto(Producto primerProd) throws Exception {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(nombreProducto));
+            wait.until(ExpectedConditions.visibilityOf(marcaProducto));
+            wait.until(ExpectedConditions.visibilityOf(precioProducto));
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.out.println("No cargo el producto");
+            throw new Exception("No cargo el producto");
+        }
         String prodName = nombreProducto.getText();
         String[] name= prodName.split(" ");
         String splitName = name[0];
