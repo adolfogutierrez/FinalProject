@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -15,19 +16,31 @@ public class CartPage extends BasePage
         PageFactory.initElements(wd, this);
     }
 
-    @FindBy(css="addToCartButton")
+    @FindBy(css="[data-automation-id='add-button']")
     WebElement addToCart;
-    @FindBy(css="added-to-cart")
+    @FindBy(css="[data-automation-id='added-to-cart']")
     WebElement productAddedValidation;
+    @FindBy(css = "[alt='check mark']")
+    WebElement checkMark;
 
     public void addToCart()
     {
+        wait.until(ExpectedConditions.visibilityOf(addToCart));
+        wait.until(ExpectedConditions.elementToBeClickable(addToCart));
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         addToCart.click();
     }
 
     public void validateProductInCart()
     {
+        wait.until(ExpectedConditions.visibilityOf(checkMark));
+        assertTrue(checkMark.isDisplayed());
         assertTrue(productAddedValidation.isDisplayed());
+        System.out.println("Producto agregado al carrito con éxito");
     }
 
 

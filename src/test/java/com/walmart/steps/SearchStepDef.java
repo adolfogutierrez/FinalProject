@@ -26,7 +26,7 @@ public class SearchStepDef {
     @And("I select the product")
     public void iSelectTheProduct()
     {
-        walmartSite.getSearch().clickOnProduct(2);
+        walmartSite.getSearch().clickOnProduct(1);
 
     }
 

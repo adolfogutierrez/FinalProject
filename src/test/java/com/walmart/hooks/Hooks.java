@@ -14,11 +14,6 @@ public class Hooks {
     public WebDriver driver;
     public WalmartSite walmartSite;
 
-    public WebDriver getDriver()
-    {
-        return driver;
-    }
-
     public WalmartSite getWalmartSite()
     {
         return walmartSite;
@@ -31,13 +26,12 @@ public class Hooks {
         driver.manage().timeouts().implicitlyWait(Properties.SHORT_WAIT, TimeUnit.SECONDS);
         walmartSite = new WalmartSite(driver);
         driver.manage().window().maximize();
-        ChromeOptions ops = new ChromeOptions();
-        ops.addArguments("--disable-notifications");
+
     }
 
     @After
     public void tearDown()
     {
-        driver.quit();
+        //driver.quit();
     }
 }

@@ -21,7 +21,7 @@ public class SearchPage extends BasePage
 
     @FindBy(css="[class*=searchBarContainer] input")
     WebElement searchBar;
-    @FindBy(css="search-icon")
+    @FindBy(css="[data-automation-id='search-icon']")
     WebElement searchIcon;
     @FindBy(css="[class*='col']")
     List<WebElement> productsList;
@@ -37,9 +37,14 @@ public class SearchPage extends BasePage
         //assertTrue(searchBar.isEnabled());
         //assertTrue(searchIcon.isDisplayed());
         wait.until(ExpectedConditions.elementToBeClickable(searchBar));
-        searchBar.sendKeys("salsa");
-        //wait.until(ExpectedConditions.elementToBeClickable(searchIcon));
-        //searchIcon.click();
+        searchBar.sendKeys("nintendo");
+        wait.until(ExpectedConditions.elementToBeClickable(searchIcon));
+        searchIcon.click();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void validateSearchProductPage()
@@ -48,11 +53,11 @@ public class SearchPage extends BasePage
         System.out.println("El total de productos son: "+productos.size());
         if (productos.size() > 1)
         {
-            System.out.println("la lista se desplego correctamente");
+            System.out.println("la lista se desplegó correctamente");
         }
     }
 
-    public Producto capturaDatos(int x)
+    public Producto capturaDatos()
     {
         String prodName = nombreProducto.getText();
         String prodBrand = marcaProducto.getText();
@@ -65,8 +70,7 @@ public class SearchPage extends BasePage
 
     public void clickOnProduct(int numProduct)
     {
-        List<WebElement> productos = productsList;
-        WebElement producto = productos.get(numProduct - 1);
+        WebElement producto = productsList.get(numProduct - 1);
         producto.click();
     }
 

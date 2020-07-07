@@ -18,8 +18,8 @@ public class ProductStepDef {
     @And("I verify the product data")
     public void iVerifyTheProductData()
     {
-        Producto primerProd = walmartSite.getSearch().capturaDatos(2);
-        walmartSite.getProduct().validarProducto(primerProd);
+        //Producto primerProd = walmartSite.getSearch().capturaDatos();
+        //walmartSite.getProduct().validarProducto(primerProd);
 
     }
 
