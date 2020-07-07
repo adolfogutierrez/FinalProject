@@ -7,12 +7,14 @@ import cucumber.api.java.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.util.concurrent.TimeUnit;
 
 public class Hooks {
     public WebDriver driver;
     public WalmartSite walmartSite;
+    public ChromeOptions options;
 
     public WalmartSite getWalmartSite()
     {
@@ -22,11 +24,15 @@ public class Hooks {
     @Before
     public void setUp()
     {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Properties.SHORT_WAIT, TimeUnit.SECONDS);
+        options = new ChromeOptions();
+        options.addArguments("user-data-dir=C:/Users/ksfl580/AppData/Local/Google/Chrome/User Data//Default/");
+        options.addArguments("--start-maximized");
+        //options.addArguments("--incognito");
+        options.addArguments("--disable-notifications");
+        options.addArguments("--enable-javascript");
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Properties.LONG_WAIT, TimeUnit.SECONDS);
         walmartSite = new WalmartSite(driver);
-        driver.manage().window().maximize();
-
     }
 
     @After

@@ -29,25 +29,22 @@ public class SearchPage extends BasePage
     WebElement nombreProducto;
     @FindBy (css="[class*=product_brand] a")
     WebElement marcaProducto;
-    @FindBy (css="[class*=product_price_] p")
+    @FindBy (css="[data-automation-id='sale-price']")
     WebElement precioProducto;
+
+    Producto p;
 
     public void searchForProduct()
     {
-        //assertTrue(searchBar.isEnabled());
-        //assertTrue(searchIcon.isDisplayed());
         wait.until(ExpectedConditions.elementToBeClickable(searchBar));
+        assertTrue(searchBar.isEnabled());
         searchBar.sendKeys("nintendo");
         wait.until(ExpectedConditions.elementToBeClickable(searchIcon));
+        assertTrue(searchIcon.isDisplayed());
         searchIcon.click();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
-    public void validateSearchProductPage()
+    public void validateSearchProductList()
     {
         List<WebElement> productos = productsList;
         System.out.println("El total de productos son: "+productos.size());
@@ -59,13 +56,20 @@ public class SearchPage extends BasePage
 
     public Producto capturaDatos()
     {
+        wait.until(ExpectedConditions.visibilityOf(nombreProducto));
+        wait.until(ExpectedConditions.visibilityOf(marcaProducto));
+        wait.until(ExpectedConditions.visibilityOf(precioProducto));
         String prodName = nombreProducto.getText();
+        String[] name= prodName.split(" ");
+        String splitName = name[0];
         String prodBrand = marcaProducto.getText();
         String prodPrice = precioProducto.getText();
         prodPrice= prodPrice.replace("$", "");
+        prodPrice= prodPrice.replace(",", "");
+        System.out.println(prodPrice);
         double price = Double.parseDouble(prodPrice);
-
-        return new Producto(prodName, prodBrand, price);
+        this.p = new Producto(splitName, prodBrand, price);
+        return this.p;
     }
 
     public void clickOnProduct(int numProduct)
@@ -74,5 +78,8 @@ public class SearchPage extends BasePage
         producto.click();
     }
 
+    public Producto getProducto() {
+        return this.p;
+    }
 
 }

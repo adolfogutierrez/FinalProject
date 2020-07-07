@@ -1,5 +1,6 @@
 package com.walmart.pages;
 
+import com.walmart.hooks.Hooks;
 import com.walmart.utils.Properties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
